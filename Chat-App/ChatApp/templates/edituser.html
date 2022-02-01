@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Edit User</title>
+<meta charset="UTF-8">
+</head>
+<body>
+    <body style="background-color:rgba(63, 255, 5, 0.466);"></body>
+<h1>Editing Profile</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="address" placeholder="Your address" /> <br>
+        <input type="file" name="image" />
+        <button type="submit"> Submit</button>
+    </form>   
+</body>
+</html>

@@ -25,4 +25,6 @@ urlpatterns = [
     path('signup/', signup, name="signup"),
     path('username/', username),
     path('logout/', logout_user),
+    path('edituser/', edit_user),
+    path('chatpage/', chat_page),
 ]
