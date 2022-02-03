@@ -20,11 +20,12 @@ from .views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
-    path('dashboard', dashboard, name="dashboard"),
     path('login/', login_user, name="login"),
     path('signup/', signup, name="signup"),
     path('username/', username),
     path('logout/', logout_user),
     path('edituser/', edit_user),
     path('chatpage/', chat_page),
+    path('send',send, name="send"),
+    path('getMessages/', get_messages, name="getMessages"),
 ]

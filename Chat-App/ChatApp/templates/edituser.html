@@ -9,9 +9,9 @@
 <h1>Editing Profile</h1>
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="address" placeholder="Your address" /> <br>
-        <input type="file" name="image" />
-        <button type="submit"> Submit</button>
+        <input type="text" name="address" placeholder="Your address" /> <br> <br>
+        Upload a profile picture.<input type="file" name="image"/> <br> <br>
+        <button type="submit"> Submit</button> 
     </form>   
 </body>
 </html>

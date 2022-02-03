@@ -1,17 +1,12 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Message
 from django.contrib.auth.decorators import login_required
 
 def home(request):
     return render(request,'index.html')
-
-def dashboard(request):
-    if not request.user.is_authenticated:
-        return HttpResponse("Unauthorized")
-    return HttpResponse("<h1>Dashboard</h1>")
 
 def login_user(request):
     if request.method == "POST":
@@ -67,4 +62,19 @@ def edit_user(request):
 
 @login_required(login_url='/login')
 def chat_page(request):
-    return render(request, 'chatpage.html')
+    username = request.user
+    return render(request, 'chatpage.html', {'username': username})
+
+def send(request):
+    message = request.POST['message']
+    username = request.user
+
+    new_message = Message.objects.create(content=message, author=username)
+    new_message.save()
+    return HttpResponse('Message was sent successfully')
+
+def get_messages(request):
+    messages = Message.objects.all()
+    users = User.objects.values_list('username', 'id')
+    return JsonResponse({"messages": list(messages.values()),
+                         "users": list(users)})
