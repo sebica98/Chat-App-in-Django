@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Edit User</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'mystyle.css' %}">
+</head>
+<body>
+<h1>Editing Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        Enter your address: <br>
+        <input type="text" name="address" placeholder="Your address" /> <br> <br>
+        Upload a profile picture. <br>
+        <input type="file" name="photo" accept="image/*"> <br> <br>
+        <button type="submit"> Submit</button> 
+    </form>   
+</body>
+</html>

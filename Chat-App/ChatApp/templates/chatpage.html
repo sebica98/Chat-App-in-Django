@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Fantastic Chat</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'mystyle.css' %}">
+</head>
+<body>
+  <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <h2>Now you can talk to everyone! </h2>
+    <a href="/edituser">Edit Profile</a> <br>
+    <a href="/logout">Press here to log out.</a>
+<div id="display">
+<script>
+$(document).ready(function(){
+setInterval(function(){
+    $.ajax({
+        type: 'GET',
+        url : "/getMessages/",
+        success: function(response){
+            //console.log(response);
+            $("#display").empty();
+
+            for (var key in response.messages)
+            {   
+                user_id_by_msg = response.messages[key].author_id;
+                var result="";
+                for(var i=0;i<response.users.length; i++)
+                {
+                  if(response.users[i][1] == user_id_by_msg)
+                  result=response.users[i][0];
+                }
+                var result_img = document.createElement('img');
+                var src_path = ""
+                for(var i=0;i<response.profiles.length; i++)
+                 {
+                   if(response.profiles[i][0] == user_id_by_msg)
+                   src_path=response.profiles[i][1];
+                 }
+                  result_img.src = "../media/" + src_path;
+                
+                var temp=""
+                if(src_path!="")
+                {
+                  temp += "<div class=\"container darker\"><br>" + "<img src=\"" + result_img.src + "\"" + " style=\"width:100%;\"" + "<br>";
+                }
+                else
+                {
+                    temp += "<div class=\"container darker\"><br>";
+                }
+                temp += "<b>"+result+"</b><p>"+response.messages[key].content+"</p>"+response.messages[key].date+"<br></div>";
+                $("#display").append(temp);
+            }
+        },
+        error: function(response){
+            alert('An error occured')
+        }
+    });
+},1000);
+})
+</script>
+</div>
+
+      <div class="container">
+        <style>
+        input[type=text], select {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        }
+    
+        input[type=submit] {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        }
+        input[type=submit]:hover {
+        background-color: #45a049;
+        }
+        </style>
+        <form id="post-form">
+        {% csrf_token %}
+        <input type="hidden" name="username" id="username" value="{{username}}"/>
+        <input type="text" name="message" id="message" width="100px" />
+        <input type="submit" value="Send">
+    </form>
+    </div>
+</body>
+
+<script type="text/javascript">
+  $(document).on('submit','#post-form',function(e){
+    e.preventDefault();
+
+    $.ajax({
+      type:'POST',
+      url:'/send',
+      data:{
+          username:$('#username').val(),
+          message:$('#message').val(),
+        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+      },
+      success: function(data){
+         //alert(data)
+      }
+    });
+    document.getElementById('message').value = ''
+  });
+</script>
+</html>
