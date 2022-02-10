@@ -7,7 +7,7 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     address = models.TextField()
-    photo = models.ImageField(null=True)
+    photo = models.ImageField(null=True, upload_to='images/')
 
     def __str__(self):
         return self.address

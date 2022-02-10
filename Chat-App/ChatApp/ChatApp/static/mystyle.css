@@ -1,0 +1,45 @@
+body {
+    background-color: rgba(63, 255, 5, 0.466);
+  }
+  body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+  
+  .container {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+  }
+  .darker {
+    border-color: #ccc;
+    background-color: #ddd;
+  }
+
+  input[type=text] {
+    border: 2px solid green;
+    border-radius: 4px;
+  }
+
+  input[type=password] {
+    border: 2px solid green;
+    border-radius: 4px;
+  }
+  input[type=email] {
+    border: 2px solid green;
+    border-radius: 4px;
+  }
+
+  button[type=submit] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+
+  }

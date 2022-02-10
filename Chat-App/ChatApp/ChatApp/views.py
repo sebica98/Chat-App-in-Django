@@ -2,6 +2,8 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
+
+from ChatApp.forms import ImageForm
 from .models import Profile, Message
 from django.contrib.auth.decorators import login_required
 
@@ -53,12 +55,15 @@ def edit_user(request):
     if request.method == 'POST':
         user = request.user
         address = request.POST['address']
-        image = request.POST['image']
+        image = request.FILES['photo']
         profile, created = Profile.objects.get_or_create(user=request.user)
         user.profile.address = address
-        user.profile.image = image
+        user.profile.photo = image
         user.save()
-    return render(request, 'edituser.html')
+        return redirect('/chatpage')
+    else:
+        imageform = ImageForm()
+        return render(request, "edituser.html", {'imageform': imageform})
 
 @login_required(login_url='/login')
 def chat_page(request):
@@ -76,5 +81,7 @@ def send(request):
 def get_messages(request):
     messages = Message.objects.all()
     users = User.objects.values_list('username', 'id')
+    profiles = Profile.objects.values_list('user_id', 'photo')
     return JsonResponse({"messages": list(messages.values()),
-                         "users": list(users)})
+                         "users": list(users),
+                         "profiles": list(profiles)})
