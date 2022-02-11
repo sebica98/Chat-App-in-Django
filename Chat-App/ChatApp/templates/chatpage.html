@@ -43,7 +43,8 @@ setInterval(function(){
                 var temp=""
                 if(src_path!="")
                 {
-                  temp += "<div class=\"container darker\"><br>" + "<img src=\"" + result_img.src + "\"" + " style=\"width:100%;\"" + "<br>";
+                  temp += "<div class=\"container darker\"><br>" + "<img src=\"" + result_img.src + "\"" + " style=\"width:100%; " +
+                  "float: left; max-width: 60px; margin-right: 20px; border-radius: 50%;\"" + "<br>";
                 }
                 else
                 {
@@ -51,6 +52,7 @@ setInterval(function(){
                 }
                 temp += "<b>"+result+"</b><p>"+response.messages[key].content+"</p>"+response.messages[key].date+"<br></div>";
                 $("#display").append(temp);
+                console.log(temp);
             }
         },
         error: function(response){
