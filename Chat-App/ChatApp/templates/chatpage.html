@@ -9,9 +9,9 @@
 <body>
   <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
     <h2>Now you can talk to everyone! </h2>
-    <a href="/edituser">Edit Profile</a> <br>
-    <a href="/logout">Press here to log out.</a>
-<div id="display">
+    <a href="{% url "edit-user" %}">Edit Profile</a> <br>
+    <a href="{% url "logout" %}">Press here to log out.</a> <br> <br>
+<div id="display" style="height:480px;width:800px; border: 5px solid rgb(0, 0, 0); overflow: auto;">
 <script>
 $(document).ready(function(){
 setInterval(function(){
@@ -52,7 +52,6 @@ setInterval(function(){
                 }
                 temp += "<b>"+result+"</b><p>"+response.messages[key].content+"</p>"+response.messages[key].date+"<br></div>";
                 $("#display").append(temp);
-                console.log(temp);
             }
         },
         error: function(response){

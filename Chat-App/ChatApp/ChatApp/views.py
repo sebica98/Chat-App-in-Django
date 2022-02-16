@@ -1,7 +1,10 @@
+from time import strptime
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
+
+from datetime import datetime
 
 from ChatApp.forms import ImageForm
 from .models import Profile, Message
@@ -73,7 +76,6 @@ def chat_page(request):
 def send(request):
     message = request.POST['message']
     username = request.user
-
     new_message = Message.objects.create(content=message, author=username)
     new_message.save()
     return HttpResponse('Message was sent successfully')

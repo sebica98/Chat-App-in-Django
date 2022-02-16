@@ -25,9 +25,9 @@ urlpatterns = [
     path('login/', login_user, name="login"),
     path('signup/', signup, name="signup"),
     path('username/', username),
-    path('logout/', logout_user),
-    path('edituser/', edit_user),
-    path('chatpage/', chat_page),
+    path('logout/', logout_user, name="logout"),
+    path('edituser/', edit_user, name="edit-user"),
+    path('chatpage/', chat_page, name='chatpage'),
     path('send',send, name="send"),
     path('getMessages/', get_messages, name="getMessages"),
 

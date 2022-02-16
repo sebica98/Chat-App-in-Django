@@ -1,4 +1,5 @@
 from datetime import datetime
+from email.utils import format_datetime
 from django.db import models
 from django.contrib.auth.models import Permission, User
 from django.db.models.signals import post_save
@@ -15,7 +16,7 @@ class Profile(models.Model):
 class Message(models.Model):
     content = models.TextField(max_length=10000)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    date = models.DateTimeField(default = datetime.now, blank=True)
+    date = models.DateTimeField(auto_now_add= True, blank=True)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **args):
