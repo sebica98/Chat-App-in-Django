@@ -14,9 +14,17 @@ body {
     padding: 10px;
     margin: 10px 0;
   }
+  
   .darker {
     border-color: #ccc;
     background-color: #ddd;
+  }
+  .darker img {
+    width:100%;
+    float: left; 
+    max-width: 60px; 
+    margin-right: 20px; 
+    border-radius: 50%;
   }
 
   input[type=text] {
@@ -41,5 +49,22 @@ body {
     text-decoration: none;
     margin: 4px 2px;
     cursor: pointer;
+  }
 
+  .profile ul {
+    list-style-type: circle;
+    background: #4CAF50;
+    padding: 20px;
+  }
+
+  .profile li {
+    font-size: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .profile li img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
+    display: block;
   }
