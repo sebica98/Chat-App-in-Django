@@ -30,5 +30,6 @@ urlpatterns = [
     path('chatpage/', chat_page, name='chatpage'),
     path('send',send, name="send"),
     path('getMessages/', get_messages, name="getMessages"),
+    path('chatpage/profile/<slug:slug>', get_profile, name="getProfile"),
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

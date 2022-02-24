@@ -8,10 +8,10 @@
 </head>
 <body>
   <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-    <h2>Now you can talk to everyone! </h2>
+    <h2>Welcome, {{ username.username }}! Now you can talk to everyone! </h2>
     <a href="{% url "edit-user" %}">Edit Profile</a> <br>
     <a href="{% url "logout" %}">Press here to log out.</a> <br> <br>
-<div id="display" style="height:480px;width:800px; border: 5px solid rgb(0, 0, 0); overflow: auto;">
+<div id="display" style="height:480px;width:800px; border: 5px solid green; overflow: auto;">
 <script>
 $(document).ready(function(){
 setInterval(function(){
@@ -33,24 +33,25 @@ setInterval(function(){
                 }
                 var result_img = document.createElement('img');
                 var src_path = ""
+                var href_path = "profile/"
                 for(var i=0;i<response.profiles.length; i++)
-                 {
-                   if(response.profiles[i][0] == user_id_by_msg)
+                 {  
+                   if(response.profiles[i][0] == user_id_by_msg) {
                    src_path=response.profiles[i][1];
+                   href_path += response.profiles[i][2]
+                   }
                  }
-                  result_img.src = "../media/" + src_path;
-                
+                result_img.src = "../media/" + src_path;
                 var temp=""
                 if(src_path!="")
                 {
-                  temp += "<div class=\"container darker\"><br>" + "<img src=\"" + result_img.src + "\"" + " style=\"width:100%; " +
-                  "float: left; max-width: 60px; margin-right: 20px; border-radius: 50%;\"" + "<br>";
+                  temp += "<div class=\"container darker\"><br>" + "<img src=\"" + result_img.src + "\"" 
                 }
                 else
                 {
                     temp += "<div class=\"container darker\"><br>";
                 }
-                temp += "<b>"+result+"</b><p>"+response.messages[key].content+"</p>"+response.messages[key].date+"<br></div>";
+                temp += "<b> <a href=\"" + href_path + "\">"+result+" </a> </b><p>"+response.messages[key].content+"</p>"+response.messages[key].date+"<br></div>";
                 $("#display").append(temp);
             }
         },

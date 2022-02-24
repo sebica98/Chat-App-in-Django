@@ -1,6 +1,6 @@
 from time import strptime
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 
@@ -83,7 +83,15 @@ def send(request):
 def get_messages(request):
     messages = Message.objects.all()
     users = User.objects.values_list('username', 'id')
-    profiles = Profile.objects.values_list('user_id', 'photo')
+    profiles = Profile.objects.values_list('user_id', 'photo', 'slug')
     return JsonResponse({"messages": list(messages.values()),
                          "users": list(users),
                          "profiles": list(profiles)})
+
+
+@login_required(login_url='/login')
+def get_profile(request, slug):
+    profile = get_object_or_404(Profile, slug=slug)
+    return render(request, "singleprofile.html", {
+        "profile": profile,
+    })
